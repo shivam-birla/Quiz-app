@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+}
+.overview{
+        background-color:transparent;
+        padding: 2rem;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        color: transparent;
+        max-height: 100%;
+        transform: translateY(101%);
+        transition: transform 0.3s ease-in;
+        
+}
+.main:hover .overview{
+   transform: translateY(0);
+   background: #e3dede;
+   color: black;
+
+    }
+span{
+        padding: 6px;
+        height: 30px;
+        border-radius: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    input{
+        outline: none;
+        color: #e3dede;
+        padding: 19px;
+        font-weight: bolder;
+    }
