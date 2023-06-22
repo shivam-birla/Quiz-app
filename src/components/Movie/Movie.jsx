@@ -21,67 +21,70 @@ const Movie = () => {
     fetchMovies();
   }, []);
 
-  // const handleSearch = async (event) => {
-  //   if (event.keyCode === 13) {
-  //     try {
-  //       const response = await fetch(SEARCH_API + searchValue);
-  //       const data = await response.json();
+  const handleSearch = async (event) => {
+    if (event.keyCode === 13) {
+      try {
+        const response = await fetch(SEARCH_API + searchValue);
+        const data = await response.json();
 
-  //       if (response.status === 200) {
-  //         if (data.results.length > 0) {
-  //           setSearchData(data.results);
-  //           setError(false);
-  //           setSearchValue('')
-  //         } else {
-  //           setSearchData([]);
-  //           setError(true);
-  //           setSearchValue('')
-  //         }
+        if (response.status === 200) {
+          if (data.results.length > 0) {
+            setSearchData(data.results);
+            setError(false);
+            setSearchValue("");
+          } 
+          else {
+            setSearchData([]);
+            setError(true);
+            setSearchValue("");
+          }
+        } 
+        else {
+          setSearchData([]);
+          setError(true);
+        }
+      }
+       catch (error) {
+        console.log(`${error.message} occurred`);
+      }
+    }
+  };
+
+  // useEffect(() => {
+  //   const debounceTimer = setTimeout(() => {
+  //     searchMovies();
+  //   }, 300); // Adjust the debounce delay as needed (e.g., 300ms)
+
+  //   return () => clearTimeout(debounceTimer);
+  // }, [searchValue]);
+
+  // const searchMovies = async () => {
+  //   if (searchValue.trim() === "") {
+  //     setSearchData([]);
+  //     setError(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(SEARCH_API + searchValue);
+  //     const data = await response.json();
+
+  //     if (response.status === 200) {
+  //       if (data.results.length > 0) {
+  //         setSearchData(data.results);
+  //         setError(false);
   //       } else {
   //         setSearchData([]);
   //         setError(true);
   //       }
-  //     } catch (error) {
-  //       console.log(`${error.message} occurred`);
+  //     } else {
+  //       setSearchData([]);
+  //       setError(true);
   //     }
+  //   } catch (error) {
+  //     console.log(`${error.message} occurred`);
   //   }
   // };
-
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      searchMovies();
-    }, 300); // Adjust the debounce delay as needed (e.g., 300ms)
-
-    return () => clearTimeout(debounceTimer);
-  }, [searchValue]);
-
-  const searchMovies = async () => {
-    if (searchValue.trim() === "") {
-      setSearchData([]);
-      setError(false);
-      return;
-    }
-
-    try {
-      const response = await fetch(SEARCH_API + searchValue);
-      const data = await response.json();
-
-      if (response.status === 200) {
-        if (data.results.length > 0) {
-          setSearchData(data.results);
-          setError(false);
-        } else {
-          setSearchData([]);
-          setError(true);
-        }
-      } else {
-        setSearchData([]);
-        setError(true);
-      }
-    } catch (error) {
-      console.log(`${error.message} occurred`);
-    }
-  };
 
   // const handleSearch = (event) => {
   //   if (event.keyCode === 13) {
@@ -95,7 +98,7 @@ const Movie = () => {
         <form action="" onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
-            // onKeyDown={handleSearch} 
+            onKeyDown={handleSearch}
             placeholder="Search"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
@@ -112,8 +115,9 @@ const Movie = () => {
         ) : searchedData.length > 0 ? (
           searchedData.map((movie) => (
             <div
-             key={movie.id}
-             className="main w-72 shadow-sm relative flex flex-col text-white overflow-hidden bg-[#373b69]">
+              key={movie.id}
+              className="main w-72 shadow-sm relative flex flex-col text-white overflow-hidden bg-[#373b69]"
+            >
               <img
                 src={"https://image.tmdb.org/t/p/w1280" + movie.poster_path}
                 alt={movie.title}
