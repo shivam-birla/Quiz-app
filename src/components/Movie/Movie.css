@@ -10,11 +10,12 @@
         right: 0;
         color: transparent;
         max-height: 100%;
+        overflow: hidden;
         transform: translateY(101%);
         transition: transform 0.3s ease-in;
         
 }
-.main:hover .overview{
+   .main:hover .overview{
    transform: translateY(0);
    background: #e3dede;
    color: black;
